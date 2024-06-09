@@ -1,9 +1,35 @@
 import { Container, Text, VStack, Box, Heading, Button, Image, HStack, IconButton } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const Index = () => {
+  const [background, setBackground] = useState("");
+
+  useEffect(() => {
+    const colors = ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#8B00FF"];
+    let colorIndex = 0;
+
+    const changeBackground = () => {
+      setBackground(colors[colorIndex]);
+      colorIndex = (colorIndex + 1) % colors.length;
+    };
+
+    const intervalId = setInterval(changeBackground, 3000); // Change color every 3 seconds
+
+    return () => clearInterval(intervalId);
+  }, []);
   return (
-    <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+    <Container
+      centerContent
+      maxW="container.md"
+      height="100vh"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      bg={background}
+      transition="background-color 1s ease"
+    >
       <VStack spacing={8}>
         <Box textAlign="center">
           <Image
